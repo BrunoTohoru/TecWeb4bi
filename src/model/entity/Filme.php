@@ -20,10 +20,10 @@ class Filme {
     #[Column(type: "string")]
     private $nome;
 
-    #[Column(type: "int")]
+    #[Column(type: "integer")]
     private $ano;
 
-    #[Column(type: "int")]
+    #[Column(type: "integer")]
     private $duracao;
 
     #[Column(type: "string")]
@@ -32,7 +32,7 @@ class Filme {
     #[Column(type: "string")]
     private $sinopse;
 
-    #[ORM\ManyToOne(targetEntity: Estilo::class, cascade:['persist', 'remove'], fetch:'EAGER')]
+    #[ORM\ManyToOne(targetEntity: Estilo::class, inversedBy: 'filmes')]
     #[ORM\JoinColumn(name: 'estilo_id', referencedColumnName: 'id')]
     private $estilo;
 

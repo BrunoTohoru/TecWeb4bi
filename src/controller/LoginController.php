@@ -10,10 +10,9 @@ use Controller\Controller;
  * do usuário
  */
 class LoginController extends Controller{
-    
 
     public static function login() {
-        include '../app/view/login.php';
+        include '../src/view/login.php';
     }
 
     public static function autenticar($entityManager) {
@@ -35,7 +34,7 @@ class LoginController extends Controller{
     }
 
     public static function sair() {
-        
+
         unset($_SESSION['usuario_logado']);
 
         header("Location: /login");

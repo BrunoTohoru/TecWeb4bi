@@ -20,7 +20,7 @@ class LocacaoController extends Controller {
         parent::isProtected();
         $dao = new LocacaoDAO();
         $locacoes = $dao->read_all($entityManager);
-        include '../app/view/modules/locacao/LocacaoListar.php';
+        include '../src/view/modules/locacao/LocacaoListar.php';
     }
 
     public static function form($entityManager) {
@@ -35,21 +35,21 @@ class LocacaoController extends Controller {
             $locacao = $dao->read($entityManager, (int) $_GET['edit']);
         }
 
-        include '../app/view/modules/locacao/LocacaoForm.php';
+        include '../src/view/modules/locacao/LocacaoForm.php';
     }
 
     public static function create($entityManager) {
         parent::isProtected();
         $dao = new LocacaoDAO();
-        
+
         if (isset($_POST['cadastrar'])) {
             $locacao = new Locacao();
-            $locacao->filme_id = $_POST['filme_id'];
-            $locacao->cliente_id = $_POST['cliente_id'];
-            $locacao->emissao = $_POST['emissao'];
-            $locacao->devolucao = $_POST['devolucao'];
+            $locacao->filme = $_POST['filme_id'];
+            $locacao->cliente = $_POST['cliente_id'];
+            $locacao->emissao = new \DateTime($_POST['emissao']);
+            $locacao->devolucao = new \DateTime($_POST['devolucao']);
             $locacao->valor = $_POST['valor'];
-        
+
             if ($dao->create($entityManager, $locacao)){
                 header("Location: /locacao");
             } else {
@@ -58,8 +58,8 @@ class LocacaoController extends Controller {
         } elseif (isset($_POST['editar'])) {
             $locacao = new Locacao();
             $locacao->id = $_POST['id'];
-            $locacao->filme_id = $_POST['filme_id'];
-            $locacao->cliente_id = $_POST['cliente_id'];
+            $locacao->filme = $_POST['filme_id'];
+            $locacao->cliente = $_POST['cliente_id'];
             $locacao->emissao = $_POST['emissao'];
             $locacao->devolucao = $_POST['devolucao'];
             $locacao->valor = $_POST['valor'];

@@ -2,67 +2,43 @@
 
 namespace Dao;
 
-use \PDOException; // Importa PDO da raiz
-
+use Entity\Estilo;
+use Doctrine\ORM\EntityManager;
 
 class EstiloDAO extends DAO {
 
-    public function __construct() {
-        // Chama o construtor do pai
-        parent::__construct();
+    public function create(EntityManager $entityManager, $estilo) {
+        $entityManager->persist($estilo);
+        $entityManager->flush();
+        return true;
     }
 
-    /**
-    * Método Create (recebe um objeto de estilo)
-    */
-    public function create($entityManager, $estilo) {
-        try {
-            $entityManager->persist($estilo);
-            return $entityManager->flush();
-        } catch (PDOException $ex) {
-            return 'error ' . $ex->getMessage();
-        }
+    public function read(EntityManager $entityManager, $id) {
+        return $entityManager->find('Entity\Estilo', $id);
     }
 
-    public function read_all($entityManager) {
-        try {
-            $query = $entityManager->createQuery("SELECT e FROM Entity\Estilo e");
-            $estilos = $query->getResult();
-            return $estilos;
-        } catch (PDOException $ex) {
-            return 'error ' . $ex->getMessage();
-        }
+    public function read_all(EntityManager $entityManager) {
+        return $entityManager->getRepository('Entity\Estilo')->findAll();
     }
 
-    public function read($entityManager, $id) {
-        try {
-            $query = $entityManager->createQuery("SELECT e FROM Entity\Estilo e WHERE e.id = :estiloId")->setParameter('estiloId', $id);
-            $estilo = $query->getResult();
-
-            return $estilo;
-        } catch (PDOException $ex) {
-            return 'error ' . $ex->getMessage();
+    public function update(EntityManager $entityManager, $estilo) {
+        $estiloExistente = $entityManager->find('Entity\Estilo', $estilo->id);
+        if ($estiloExistente) {
+            $estiloExistente->nome = $estilo->nome;
+            $entityManager->flush();
+            return true;
         }
+        return false;
     }
 
-    public function update($entityManager, $estilo) {
-        try {
-            $estiloUpdate = $entityManager->find('Entity\Estilo', $estilo->getId());
-            $estiloUpdate->setEstilo($estilo);
-            return $entityManager->flush();
-        } catch (PDOException $ex) {
-            return 'error ' . $ex->getMessage();
+    public function delete(EntityManager $entityManager, $id) {
+        $estilo = $entityManager->find('Entity\Estilo', $id);
+        if ($estilo) {
+            $entityManager->remove($estilo);
+            $entityManager->flush();
+            return true;
         }
-    }
-
-    public function delete($entityManager, $id) {
-        try {
-            $query = $entityManager->createQuery("DELETE FROM Entity\Estilo e WHERE e.id = :id")->setParameter('id', $id);
-            return $query->execute();
-        } catch (PDOException $ex) {
-            return 'error ' . $ex->getMessage();
-        }
+        return false;
     }
 }
-
 ?>

@@ -2,8 +2,8 @@
 
 namespace Controller;
 
-use app\model\dao\ClienteDAO;
-use app\model\entity\Cliente;
+use Dao\ClienteDAO;
+use Entity\Cliente;
 
 /**
  * Responsável por processar a requisição do usuário
@@ -13,36 +13,36 @@ class ClienteController extends Controller {
     /**
      * Devolve a view de listagem de clientes
      */
-    public static function listar() {
+    public static function listar($entityManager) {
         parent::isProtected();
         $dao = new ClienteDAO();
-        $clientes = $dao->read_all();
-        include '../app/view/modules/cliente/ClienteListar.php';
+        $clientes = $dao->read_all($entityManager);
+        include '../src/view/modules/cliente/ClienteListar.php';
     }
 
-    public static function form() {
+    public static function form($entityManager) {
         parent::isProtected();
         $cliente = null;
 
         if (isset($_GET['edit'])) {
             $dao = new ClienteDAO();
-            $cliente = $dao->read((int) $_GET['edit']);
+            $cliente = $dao->read($entityManager, (int) $_GET['edit']);
         }
 
-        include '../app/view/modules/cliente/ClienteForm.php';
+        include '../src/view/modules/cliente/ClienteForm.php';
     }
 
-    public static function create() {
+    public static function create($entityManager) {
         parent::isProtected();
-        $dao = new ClienteDAO();
-        
+        $dao = new ClienteDAO($entityManager);
+
         if (isset($_POST['cadastrar'])) {
             $cliente = new Cliente();
             $cliente->nome = $_POST['nome'];
             $cliente->endereco = $_POST['endereco'];
             $cliente->telefone = $_POST['telefone'];
-        
-            if ($dao->create($cliente)){
+
+            if ($dao->create($entityManager, $cliente)){
                 header("Location: /cliente");
             } else {
                 echo '<script type="text/javascript">alert("Erro em cadastrar");</script>';
@@ -54,7 +54,7 @@ class ClienteController extends Controller {
             $cliente->endereco = $_POST['endereco'];
             $cliente->telefone = $_POST['telefone'];
 
-            if ($dao->update($cliente)){
+            if ($dao->update($entityManager, $cliente)){
                 header("Location: /cliente");
             } else {
                 echo '<script type="text/javascript">alert("Erro em editar");</script>';
@@ -62,12 +62,12 @@ class ClienteController extends Controller {
         }
     }
 
-    public static function delete() {
+    public static function delete($entityManager) {
         parent::isProtected();
         $id = $_GET['id'];
         $dao = new ClienteDAO();
 
-        if ($dao->delete($id)) {
+        if ($dao->delete($entityManager, $id)) {
             header("Location: /cliente");
         } else {
             echo '<script type="text/javascript">alert("Erro em excluir");</script>';

@@ -30,7 +30,7 @@
                 <label class="form-label" for="">Estilo:</label> <br>
                 <select name="estilo_id">
                     <?php foreach ($estilos as $estilo): ?>
-                        <option value="<?=$estilo->id?>" <?=(is_null($filme) || $filme->estilo_id != $estilo->id) ? "" : "selected"?>><?=$estilo->nome?></option>
+                        <option value="<?=$estilo->id?>" <?=is_null($filme) ? "" : "selected"?>><?=$estilo->nome?></option>
                     <?php endforeach; ?>
                 </select> <br><br>
             </div>

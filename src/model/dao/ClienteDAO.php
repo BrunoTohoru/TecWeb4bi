@@ -1,68 +1,46 @@
 <?php
+
 namespace Dao;
 
 use Entity\Cliente;
-use \PDOException; // Importa PDO da raiz
-use \PDO;
+use Doctrine\ORM\EntityManager;
 
 class ClienteDAO extends DAO {
 
-    public function __construct() {
-        // Chama o construtor do pai
-        parent::__construct();
+    public function create(EntityManager $entityManager, $cliente) {
+        $entityManager->persist($cliente);
+        $entityManager->flush();
+        return true;
     }
 
-    /**
-    * Método Create (recebe um objeto de cliente)
-    */
-    public function create($cliente) {
-        try {
-            $entityManager->persist($cliente);
-            return $entityManager->flush();
-        } catch (PDOException $ex) {
-            return 'error ' . $ex->getMessage();
-        }
+    public function read(EntityManager $entityManager, $id) {
+        return $entityManager->find('Entity\Cliente', $id);
     }
 
-    public function read_all() {
-        try {
-            $query = $entityManager->createQuery("SELECT c FROM Entity\Cliente c");
-            $clientes = $query->getResult();
-            return $clientes;
-        } catch (PDOException $ex) {
-            return 'error ' . $ex->getMessage();
-        }
+    public function read_all(EntityManager $entityManager) {
+        return $entityManager->getRepository('Entity\Cliente')->findAll();
     }
 
-    public function read($id) {
-        try {
-            $query = $entityManager->createQuery("SELECT c FROM Entity\Cliente c WHERE c.id = :clienteId")->setParameter('clienteId', $id);
-            $cliente = $query->getResult();
-
-            return $cliente;
-        } catch (PDOException $ex) {
-            return 'error ' . $ex->getMessage();
+    public function update(EntityManager $entityManager, $cliente) {
+        $clienteExistente = $entityManager->find('Entity\Cliente', $cliente->id);
+        if ($clienteExistente) {
+            $clienteExistente->nome = $cliente->nome;
+            $clienteExistente->endereco = $cliente->endereco;
+            $clienteExistente->telefone = $cliente->telefone;
+            $entityManager->flush();
+            return true;
         }
+        return false;
     }
 
-    public function update($cliente) {
-        try {
-            $clienteUpdate = $entityManager->find('Entity\Cliente', $cliente->getId());
-            $clienteUpdate->setCliente($cliente);
-            return $entityManager->flush();
-        } catch (PDOException $ex) {
-            return 'error ' . $ex->getMessage();
+    public function delete(EntityManager $entityManager, $id) {
+        $cliente = $entityManager->find('Entity\Cliente', $id);
+        if ($cliente) {
+            $entityManager->remove($cliente);
+            $entityManager->flush();
+            return true;
         }
-    }
-
-    public function delete($id) {
-        try {
-            $query = $entityManager->createQuery("DELETE FROM Entity\Cliente c WHERE c.id = :id")->setParameter('id', $id);
-            return $query->execute();
-        } catch (PDOException $ex) {
-            return 'error ' . $ex->getMessage();
-        }
+        return false;
     }
 }
-
 ?>

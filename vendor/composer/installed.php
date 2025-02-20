@@ -3,7 +3,7 @@
         'name' => 'bruno/atividade4obi-tecweb',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '934e355535f01fc6052ae472273615ed238b2fde',
+        'reference' => 'a5552baf3967a7b19d328d203399b4f6aaf2ea7f',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'bruno/atividade4obi-tecweb' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '934e355535f01fc6052ae472273615ed238b2fde',
+            'reference' => 'a5552baf3967a7b19d328d203399b4f6aaf2ea7f',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

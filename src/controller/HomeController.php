@@ -1,5 +1,5 @@
 <?php
-namespace app\controller;
+namespace Controller;
 
 class HomeController extends Controller{
     
@@ -7,7 +7,7 @@ class HomeController extends Controller{
 
         parent::isProtected();
 
-        include '../app/view/home.php';
+        include '../src/view/home.php';
     }
 }
 

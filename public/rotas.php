@@ -17,7 +17,7 @@ switch($url) {
         break;
 
     case '/autenticar':
-        LoginController::autenticar();
+        LoginController::autenticar($entityManager);
         break;
 
     case '/sair':
@@ -31,68 +31,68 @@ switch($url) {
     
     // locacão
     case '/locacao':
-        LocacaoController::listar();
+        LocacaoController::listar($entityManager);
         break;
     
     case "/locacao/form":
-        LocacaoController::form();
+        LocacaoController::form($entityManager);
         break;
 
     case "/locacao/form/create":
-        LocacaoController::create();
+        LocacaoController::create($entityManager);
         break;
     case "/locacao/delete":
-        LocacaoController::delete();
+        LocacaoController::delete($entityManager);
 
     // cliente
     case '/cliente':
-        ClienteController::listar();
+        ClienteController::listar($entityManager);
         break;
 
     case "/cliente/form":
-        ClienteController::form();
+        ClienteController::form($entityManager);
         break;
 
     case "/cliente/form/create":
-        ClienteController::create();
+        ClienteController::create($entityManager);
         break;
 
     case "/cliente/delete":
-        ClienteController::delete();
+        ClienteController::delete($entityManager);
         break;
 
     // filme
     case '/filme':
-        FilmeController::listar();
+        FilmeController::listar($entityManager);
         break;
 
     case "/filme/form":
-        FilmeController::form();
+        FilmeController::form($entityManager);
         break;
 
     case "/filme/form/create":
-        FilmeController::create();
+        FilmeController::create($entityManager);
         break;
 
     case "/filme/delete":
-        FilmeController::delete();
+        FilmeController::delete($entityManager);
         break;
 
     // estilo
     case '/estilo':
-        EstiloController::listar();
+        EstiloController::listar($entityManager);
         break;
 
     case "/estilo/form":
-        EstiloController::form();
+        EstiloController::form($entityManager);
         break;
 
     case "/estilo/form/create":
-        EstiloController::create();
+        EstiloController::create($entityManager);
         break;
 
     case "/estilo/delete":
-        EstiloController::delete();
+        EstiloController::delete($entityManager);
     break;
 
     default:

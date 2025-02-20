@@ -1,10 +1,10 @@
 <?php
 
-namespace app\controller;
+namespace Controller;
 
-use app\model\dao\FilmeDAO;
-use app\model\dao\EstiloDAO;
-use app\model\entity\Filme;
+use Dao\FilmeDAO;
+use Dao\EstiloDAO;
+use Entity\Filme;
 
 /**
  * Responsável por processar a requisição do usuário
@@ -14,28 +14,28 @@ class FilmeController extends Controller {
     /**
      * Devolve a view de listagem de filmes
      */
-    public static function listar() {
+    public static function listar($entityManager) {
         parent::isProtected();
         $dao = new FilmeDAO();
-        $filmes = $dao->read_all();
+        $filmes = $dao->read_all($entityManager);
         
-        include '../app/view/modules/filme/FilmeListar.php';
+        include '../src/view/modules/filme/FilmeListar.php';
     }
 
-    public static function form() {
+    public static function form($entityManager) {
         parent::isProtected();
         $filme = null;
         $daoEstilo = new EstiloDAO();
-        $estilos = $daoEstilo->read_all();
+        $estilos = $daoEstilo->read_all($entityManager);
         if (isset($_GET['edit'])) {
             $dao = new FilmeDAO();
-            $filme = $dao->read((int) $_GET['edit']);
+            $filme = $dao->read($entityManager, (int) $_GET['edit']);
         }
 
-        include '../app/view/modules/filme/FilmeForm.php';
+        include '../src/view/modules/filme/FilmeForm.php';
     }
 
-    public static function create() {
+    public static function create($entityManager) {
         parent::isProtected();
         $dao = new FilmeDAO();
         
@@ -46,9 +46,9 @@ class FilmeController extends Controller {
             $filme->duracao = $_POST['duracao'];
             $filme->foto = $_POST['foto'];
             $filme->sinopse = $_POST['sinopse'];
-            $filme->estilo_id = $_POST['estilo_id'];
+            $filme->estilo = $_POST['estilo'];
         
-            if ($dao->create($filme)){
+            if ($dao->create($entityManager, $filme)){
                 header("Location: /filme");
             } else {
                 echo '<script type="text/javascript">alert("Erro em cadastrar");</script>';
@@ -61,9 +61,9 @@ class FilmeController extends Controller {
             $filme->duracao = $_POST['duracao'];
             $filme->foto = $_POST['foto'];
             $filme->sinopse = $_POST['sinopse'];
-            $filme->estilo_id = $_POST['estilo_id'];
+            $filme->estilo = $_POST['estilo_id'];
 
-            if ($dao->update($filme)){
+            if ($dao->update($entityManager, $filme)){
                 header("Location: /filme");
             } else {
                 echo '<script type="text/javascript">alert("Erro em editar");</script>';
@@ -71,12 +71,12 @@ class FilmeController extends Controller {
         }
     }
 
-    public static function delete() {
+    public static function delete($entityManager) {
         parent::isProtected();
         $id = $_GET['id'];
         $dao = new FilmeDAO();
 
-        if ($dao->delete($id)) {
+        if ($dao->delete($entityManager, $id)) {
             header("Location: /filme");
         } else {
             echo '<script type="text/javascript">alert("Erro em excluir");</script>';
