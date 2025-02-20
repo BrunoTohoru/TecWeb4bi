@@ -2,7 +2,9 @@
     "name": "bruno/atividade4obi-tecweb",
     "autoload": {
         "psr-4": {
-            "Bruno\\Atividade4obiTecweb\\": "src/"
+            "Dao\\": "src/model/dao/",
+            "Entity\\": "src/model/entity/",
+            "Controller\\": "src/controller/"
         }
     },
     "authors": [
@@ -12,7 +14,7 @@
         }
     ],
     "require": {
-        "guzzlehttp/guzzle": "^7.9",
-        "doctrine/orm": "^3.3"
+        "doctrine/orm": "^3.3",
+        "symfony/cache": "^6.0"
     }
 }

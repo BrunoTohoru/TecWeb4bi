@@ -1,6 +1,6 @@
 <?php
 
-namespace Entities;
+namespace Entity;
 
 use Doctrine\ORM\Mapping\Column; 
 use Doctrine\ORM\Mapping\Entity;
@@ -26,7 +26,7 @@ class Filme {
     #[Column(type: "int")]
     private $duracao;
 
-    #[Column(type: "blob")]
+    #[Column(type: "string")]
     private $foto;
 
     #[Column(type: "string")]

@@ -1,8 +1,7 @@
-<?php 
-namespace Dao\dao;
-require __DIR__ . '/../../cli-config.php';
+<?php
+namespace Dao;
 
-use app\model\entity\Cliente;
+use Entity\Cliente;
 use \PDOException; // Importa PDO da raiz
 use \PDO;
 
@@ -29,7 +28,7 @@ class ClienteDAO extends DAO {
         try {
             $query = $entityManager->createQuery("SELECT c FROM Entity\Cliente c");
             $clientes = $query->getResult();
-            return $clientes;            
+            return $clientes;
         } catch (PDOException $ex) {
             return 'error ' . $ex->getMessage();
         }

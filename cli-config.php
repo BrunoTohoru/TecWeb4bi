@@ -1,12 +1,12 @@
 <?php
-require_once "vendor/autoload.php";
+require_once __DIR__."/vendor/autoload.php";
 use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\ORMSetup;
 use Doctrine\ORM\EntityManager;
 // Caminho para as entidades (pastas com as classes que representam o banco de dados)
 // Configuração do Doctrine (produção ou desenvolvimento)
 $config = ORMSetup::createAttributeMetadataConfiguration(
-    paths: [__DIR__ . '/src/entities'],
+    paths: [__DIR__ . '/src/model/entity/'],
     isDevMode: true,
 );
 $dbParams = [

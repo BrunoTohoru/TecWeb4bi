@@ -1,15 +1,12 @@
 <?php
 
-namespace Controller;
+use Controller\LocacaoController;
+use Controller\EstiloController;
+use Controller\ClienteController;
+use Controller\FilmeController;
+use Controller\HomeController;
+use Controller\LoginController;
 
-/*
-use src\controller\LocacaoController;
-use src\controller\EstiloController;
-use src\controller\ClienteController;
-use src\controller\FilmeController;
-use src\controller\HomeController;
-use src\controller\LoginController;
-*/
 
 $url = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
 
