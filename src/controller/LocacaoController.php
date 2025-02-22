@@ -41,11 +41,13 @@ class LocacaoController extends Controller {
     public static function create($entityManager) {
         parent::isProtected();
         $dao = new LocacaoDAO();
+        $daoFilme = new FilmeDAO();
+        $daoCliente = new ClienteDAO();
 
         if (isset($_POST['cadastrar'])) {
             $locacao = new Locacao();
-            $locacao->filme = $_POST['filme_id'];
-            $locacao->cliente = $_POST['cliente_id'];
+            $locacao->filme = $daoFilme->read($entityManager,(int) $_POST['filme_id']);
+            $locacao->cliente = $daoCliente->read($entityManager,(int) $_POST['cliente_id']);
             $locacao->emissao = new \DateTime($_POST['emissao']);
             $locacao->devolucao = new \DateTime($_POST['devolucao']);
             $locacao->valor = $_POST['valor'];
@@ -58,10 +60,10 @@ class LocacaoController extends Controller {
         } elseif (isset($_POST['editar'])) {
             $locacao = new Locacao();
             $locacao->id = $_POST['id'];
-            $locacao->filme = $_POST['filme_id'];
-            $locacao->cliente = $_POST['cliente_id'];
-            $locacao->emissao = $_POST['emissao'];
-            $locacao->devolucao = $_POST['devolucao'];
+            $locacao->filme = $daoFilme->read($entityManager,(int) $_POST['filme_id']);
+            $locacao->cliente = $daoCliente->read($entityManager,(int) $_POST['cliente_id']);
+            $locacao->emissao = new \DateTime($_POST['emissao']);
+            $locacao->devolucao = new \DateTime($_POST['devolucao']);
             $locacao->valor = $_POST['valor'];
 
             if ($dao->update($entityManager, $locacao)){

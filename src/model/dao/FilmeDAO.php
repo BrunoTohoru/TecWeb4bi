@@ -29,7 +29,7 @@ class FilmeDAO extends DAO {
             $filmeExistente->duracao = $filme->duracao;
             $filmeExistente->foto = $filme->foto;
             $filmeExistente->sinopse = $filme->sinopse;
-            $filmeExistente->estilo_id = $filme->estilo_id;
+            $filmeExistente->estilo = $filme->estilo;
             $entityManager->flush();
             return true;
         }

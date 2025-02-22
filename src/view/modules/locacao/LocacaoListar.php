@@ -14,10 +14,10 @@
         <tbody>
             <?php foreach ($locacoes as $locacao): ?>
             <tr>
-                <td><?=$locacao->filme ?></td>
-                <td><?=$locacao->cliente ?></td>
-                <td><?=$locacao->emissao ?></td>
-                <td><?=$locacao->devolucao ?></td>
+                <td><?=$locacao->filme->nome ?></td>
+                <td><?=$locacao->cliente->nome ?></td>
+                <td><?=$locacao->emissao->format('d/m/Y') ?></td>
+                <td><?=$locacao->devolucao->format('d/m/Y') ?></td>
                 <td>R$ <?=number_format($locacao->valor, 2, ',', '.')?></td>
                 <td>
                     <a href="/locacao/form?edit=<?=$locacao->id?>">

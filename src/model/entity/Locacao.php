@@ -26,11 +26,11 @@ class Locacao {
     #[Column(type: "float")]
     private $valor;
 
-    #[ORM\ManyToOne(targetEntity: Filme::class, cascade:['persist', 'remove'], fetch:'EAGER')]
+    #[ORM\ManyToOne(targetEntity: Filme::class, cascade:['persist'], fetch:'EAGER')]
     #[ORM\JoinColumn(name: 'filme_id', referencedColumnName: 'id')]
     private $filme;
 
-    #[ORM\ManyToOne(targetEntity: Cliente::class, cascade:['persist', 'remove'], fetch:'EAGER')]
+    #[ORM\ManyToOne(targetEntity: Cliente::class, cascade:['persist'], fetch:'EAGER')]
     #[ORM\JoinColumn(name: 'cliente_id', referencedColumnName: 'id')]
     private $cliente;
 

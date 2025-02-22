@@ -3,7 +3,7 @@
     <fieldset>
         <legend><?=(is_null($filme)) ? ("Cadastro") : ("Edição")?> de Filme</legend>
 
-        <form class="row g-3" method="post" action="/filme/form/create">
+        <form class="row g-3" method="post" action="/filme/form/create" enctype="multipart/form-data">
             <input type="hidden" name='id' value="<?=(is_null($filme)) ? ("") : ($filme->id)?>">
 
             <div class="col-12">
